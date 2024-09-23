@@ -40,6 +40,12 @@ class CuentaVirtual:
     @classmethod
     def crearId(cls, bancoVirtual):
         return f'ID-{len(bancoVirtual.getCuentasCreadas())}'
+
+    
+    def __str__(self):
+
+        return f"\n-----Cuenta Virtual-----\n    Usuario: {self.getUsuario().getNombre()}\n    Saldo: {self.getSaldo()}\n    ID: {self.getId()}\n"
+
     
     def enviarDinero(self, contraseña = "", numeroCuenta = 0, valor = 0):
 
@@ -61,6 +67,7 @@ class CuentaVirtual:
                 return "El numero de cuenta ingresado no existe, intentalo de nuevo"
         else:
             return "Contraseña incorrecta, vuelva a intentarlo"
+
 
     def getSaldo(self):
         return self._saldo
