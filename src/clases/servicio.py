@@ -16,6 +16,17 @@ class Servicio:
             return True
         else:
             return False
+        
+    def __str__(self) -> str:
+        
+        enumerarPlanes = ''
+        i = 0
+
+        for planMensual in self._planesMensuales.keys():
+            i+=1
+            enumerarPlanes += f'\n\t{i}. {planMensual}: {self._planesMensuales[planMensual]}'
+        
+        return f'Servicio: {self._nombre}; \nTipo: {self._tipo}, \nPlanes:{enumerarPlanes}'
     
     def getNombre(self):
         return self._nombre
