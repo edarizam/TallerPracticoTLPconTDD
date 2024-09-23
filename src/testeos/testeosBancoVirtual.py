@@ -125,6 +125,210 @@ class bancoVirtualTest(unittest.TestCase):
         clienteEncontrado2 = bancoVirtual1.buscarClientePorNumeroDeCelular(39145043129)
 
         self.assertEqual(clienteEncontrado2, None)
+    
+    def testFiltrarTiposDeServicios(self):
+
+        bancoVirtual1 = BancoVirtual()
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarTiposDeServiciosDisponibles()
+        self.assertEqual(len(tiposDeServiciosDisponibles), 0)
+
+        #Creamos los objetos de servicio
+        Servicio(
+            'WOM', 
+            'Telefonía', 
+            {
+            'Datos: 100GB, Llamadas ilimitadas, Whatsapp ilimitado' : 58900,
+            'Datos: 50GB, Llamadas ilimitadas' : 45600,
+            'Datos: 30GB': 24000
+            },
+            bancoVirtual1
+        )
+
+        #1 servicio de un tipo
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarTiposDeServiciosDisponibles()
+        self.assertEqual(len(tiposDeServiciosDisponibles), 1)
+        self.assertIn('Telefonía', tiposDeServiciosDisponibles)
+
+        Servicio(
+            'WOM', 
+            'Telefonía', 
+            {
+            'Datos: 100GB, Llamadas ilimitadas, Whatsapp ilimitado' : 58900,
+            'Datos: 50GB, Llamadas ilimitadas' : 45600,
+            'Datos: 30GB': 24000
+            },
+            bancoVirtual1
+        )
+
+        #Dos servicios del mismo tipo
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarTiposDeServiciosDisponibles()
+        self.assertEqual(len(tiposDeServiciosDisponibles), 1)
+        self.assertIn('Telefonía', tiposDeServiciosDisponibles)
+
+        Servicio(
+            'Movistar', 
+            'Hogar', 
+            {
+            'Wifi: 300MB, Canales: 200, Llamadas ilimitadas' : 128000,
+            'Wifi: 200MB, Canales: 100, Llamadas: 1080 Minutos' : 64000,
+            'Wifi: 100MB, Llamadas: 640 Minutos' : 51000
+            },
+            bancoVirtual1
+        )
+
+        #3 servicios, dos del mismo tipo y uno de otro
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarTiposDeServiciosDisponibles()
+        self.assertEqual(len(tiposDeServiciosDisponibles), 2)
+        self.assertIn('Telefonía', tiposDeServiciosDisponibles)
+        self.assertIn('Hogar', tiposDeServiciosDisponibles)
+
+        Servicio(
+            'Netflix', 
+            'Streaming', 
+            {
+            '1 Pantalla' : 16900,
+            '2 Pantallas' : 26900,
+            '4 Pantallas' : 36900
+            },
+            bancoVirtual1
+        )
+
+        Servicio(
+            'Movistar', 
+            'Hogar', 
+            {
+            'Wifi: 300MB, Canales: 200, Llamadas ilimitadas' : 128000,
+            'Wifi: 200MB, Canales: 100, Llamadas: 1080 Minutos' : 64000,
+            'Wifi: 100MB, Llamadas: 640 Minutos' : 51000
+            },
+            bancoVirtual1
+        )
+
+        Servicio(
+            'Netflix', 
+            'Streaming', 
+            {
+            '1 Pantalla' : 16900,
+            '2 Pantallas' : 26900,
+            '4 Pantallas' : 36900
+            },
+            bancoVirtual1
+        )
+
+        #6 Servicios dos de cada tipo
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarTiposDeServiciosDisponibles()
+        self.assertEqual(len(tiposDeServiciosDisponibles), 3)
+        self.assertIn('Streaming', tiposDeServiciosDisponibles)
+        self.assertIn('Hogar', tiposDeServiciosDisponibles)
+        self.assertIn('Telefonía', tiposDeServiciosDisponibles)
+    
+    def testFiltrarServiciosPorTipo(self):
+
+        bancoVirtual1 = BancoVirtual()
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Telefonía')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 0)
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Hogar')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 0)
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Streaming')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 0)
+
+        #Creamos los objetos de servicio
+        Servicio(
+            'WOM', 
+            'Telefonía', 
+            {
+            'Datos: 100GB, Llamadas ilimitadas, Whatsapp ilimitado' : 58900,
+            'Datos: 50GB, Llamadas ilimitadas' : 45600,
+            'Datos: 30GB': 24000
+            },
+            bancoVirtual1
+        )
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Telefonía')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 1)
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Hogar')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 0)
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Streaming')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 0)
+
+        Servicio(
+            'Movistar', 
+            'Hogar', 
+            {
+            'Wifi: 300MB, Canales: 200, Llamadas ilimitadas' : 128000,
+            'Wifi: 200MB, Canales: 100, Llamadas: 1080 Minutos' : 64000,
+            'Wifi: 100MB, Llamadas: 640 Minutos' : 51000
+            },
+            bancoVirtual1
+        )
+
+        Servicio(
+            'WOM', 
+            'Telefonía', 
+            {
+            'Datos: 100GB, Llamadas ilimitadas, Whatsapp ilimitado' : 58900,
+            'Datos: 50GB, Llamadas ilimitadas' : 45600,
+            'Datos: 30GB': 24000
+            },
+            bancoVirtual1
+        )
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Telefonía')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 2)
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Hogar')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 1)
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Streaming')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 0)
+
+        Servicio(
+            'Netflix', 
+            'Streaming', 
+            {
+            '1 Pantalla' : 16900,
+            '2 Pantallas' : 26900,
+            '4 Pantallas' : 36900
+            },
+            bancoVirtual1
+        )
+
+        Servicio(
+            'Movistar', 
+            'Hogar', 
+            {
+            'Wifi: 300MB, Canales: 200, Llamadas ilimitadas' : 128000,
+            'Wifi: 200MB, Canales: 100, Llamadas: 1080 Minutos' : 64000,
+            'Wifi: 100MB, Llamadas: 640 Minutos' : 51000
+            },
+            bancoVirtual1
+        )
+
+        Servicio(
+            'WOM', 
+            'Telefonía', 
+            {
+            'Datos: 100GB, Llamadas ilimitadas, Whatsapp ilimitado' : 58900,
+            'Datos: 50GB, Llamadas ilimitadas' : 45600,
+            'Datos: 30GB': 24000
+            },
+            bancoVirtual1
+        )
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Telefonía')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 3)
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Hogar')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 2)
+
+        tiposDeServiciosDisponibles = bancoVirtual1.filtrarServiciosPorTipo('Streaming')
+        self.assertEqual(len(tiposDeServiciosDisponibles), 1)
 
 if __name__ == '__main__':
     unittest.main()
