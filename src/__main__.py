@@ -417,20 +417,13 @@ def requisitosDeSistema(bancoVirtual):
     
     #Crear usuario para el profe
 
-<<<<<<< HEAD
 bancoVirtual = BancoVirtual()
 requisitosDeSistema(bancoVirtual)
-=======
-
-#Definir aquí requisitos para el sistema
-
-bancoVirtual = BancoVirtual()
 
 #Usuario para hacer pruebas de inicio de sesion 
 clientePrueba =  Usuario(cuenta= CuentaVirtual(saldo= 100000, usuario= None, id = CuentaVirtual.crearId(bancoVirtual), contraseña= "1234", bancoVirtual= bancoVirtual), nombre="Oscar", bancoVirtual = bancoVirtual, numeroCelular=3016534290)
 clientePrueba.getCuenta().setUsuario(clientePrueba)
 
->>>>>>> c7614846b733bf2870e16480a196af3450d9f427
 clienteProceso = ingresoBancoVirtual(bancoVirtual)
 
 mostrarOpcionesAplicacion(clienteProceso)
