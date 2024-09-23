@@ -144,6 +144,19 @@ class TesteosMovimientos(unittest.TestCase):
         self.assertEqual(usuario.getCuenta().getSaldo(), 70000) #No cambia el saldo
         self.assertEqual(mensaje, "No tienes saldo suficiente, te hacen falta 5000.0$")
 
+    def testEnviarDineroAsimismo(self):
+        TesteosMovimientos.bancoVirtual1.getClientesAsociados().clear()
+        TesteosMovimientos.bancoVirtual1.getCuentasCreadas().clear()
+
+        usuario = Usuario(cuenta = CuentaVirtual(saldo = 70000.0, contraseña=1234, bancoVirtual= TesteosMovimientos.bancoVirtual1), numeroCelular = 3016534290, nombre="Juan Jose", bancoVirtual= TesteosMovimientos.bancoVirtual1)
+        usuario.getCuenta().setUsuario(usuario)
+
+        mensaje = usuario.getCuenta().enviarDinero(contraseña = 1234, numeroCuenta = 3016534290, valor = 50000.0)
+
+        self.assertEqual(usuario.getCuenta().getSaldo(), 70000.0) #No cambia el saldo
+        self.assertEqual(mensaje, "Error: No puedes enviarte dinero a tu misma cuenta, utiliza la opcion de consignar")
+
+
     def testEnviarDineroExitosamente(self):
 
         TesteosMovimientos.bancoVirtual1.getClientesAsociados().clear()
@@ -159,7 +172,7 @@ class TesteosMovimientos(unittest.TestCase):
 
         self.assertEqual(usuario.getCuenta().getSaldo(), 20000) 
         self.assertEqual(usuario2.getCuenta().getSaldo(), 130000.0) 
-        self.assertEqual(mensaje, "Se han enviado 50000.0$ exitosamente")
+        self.assertEqual(mensaje, "Se han enviado 50000.0$ exitosamente a Maria")
 
 
 if __name__ == "__main__":

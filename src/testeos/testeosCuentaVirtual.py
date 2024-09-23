@@ -92,5 +92,15 @@ class TesteosCuentaVirtual(unittest.TestCase):
         self.assertIn('ID-', idParaCuenta)
         self.assertIn(str(len(TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas())), idParaCuenta)
 
+    def testStr(self):
+
+        TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas().clear()
+
+        cuentaStr = CuentaVirtual(12000.0, CuentaVirtual.crearId(TesteosCuentaVirtual.bancoVirtual1), Usuario(nombre="Oscar"), "1234", TesteosCuentaVirtual.bancoVirtual1)
+
+        mensaje = cuentaStr.__str__()
+
+        self.assertEqual(mensaje, f"\n-----Cuenta Virtual-----\n    Usuario: Oscar\n    Saldo: 12000.0\n    ID: ID-0\n")
+
 if __name__ == "__main__":
     unittest.main()
