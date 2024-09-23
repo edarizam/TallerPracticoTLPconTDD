@@ -46,6 +46,7 @@ class CuentaVirtual:
 
         return f"\n-----Cuenta Virtual-----\n    Usuario: {self.getUsuario().getNombre()}\n    Saldo: {self.getSaldo()}\n    ID: {self.getId()}\n"
 
+    
     def enviarDinero(self, contraseña = "", numeroCuenta = 0, valor = 0):
 
         if self._contraseña == contraseña:
