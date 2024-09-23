@@ -66,11 +66,24 @@ class TesteosCuentaVirtual(unittest.TestCase):
         self.assertEqual(cuenta6.getBancoVirtual(), TesteosCuentaVirtual.bancoVirtual1)
 
     def testCuentasDisponibles(self):
+
+        #Testeamos que las instancias se añadan correctamente a el banco virtual
          
-        #TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas().clear()
+        TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas().clear()
 
         self.assertEqual(len(TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas()), 0)
 
+        for i in range(20):
+            CuentaVirtual(
+            (i**5) + 999,
+             int(f'{i+1}{i+2}{i+3}'), 
+             Usuario(), 
+             f'{i+3}{i+2}{i+1}{i}', 
+             TesteosCuentaVirtual.bancoVirtual1
+             )
+
+        
+        self.assertEqual(len(TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas()), 20)
 
 
 if __name__ == "__main__":

@@ -1,14 +1,15 @@
 class Usuario:
     
-    def __init__(self, cuenta = None, nombre = "", edad = 0, bancoVirtual = None):
+    def __init__(self, cuenta = None, nombre = "", edad = 0, numeroCelular = 0 ,bancoVirtual = None):
         
         self._cuenta = cuenta
         self._nombre = nombre
         self._edad = edad
+        self._numeroCelular = numeroCelular
         self._bancoVirtual = bancoVirtual
 
         if self._bancoVirtual is not None:
-            self._bancoVirtual.getCuentasCreadas().append(self) 
+            self._bancoVirtual.getClientesAsociados().append(self) 
 
     def getCuenta(self):
         return self._cuenta
@@ -27,6 +28,12 @@ class Usuario:
 
     def setEdad(self, edad):
         self._edad = edad
+
+    def getNumeroCelular(self):
+        return self._numeroCelular
+    
+    def setNumeroCelular(self, numeroCelular):
+        self._numeroCelular = numeroCelular
 
     def getBancoVirtual(self):
         return self._bancoVirtual

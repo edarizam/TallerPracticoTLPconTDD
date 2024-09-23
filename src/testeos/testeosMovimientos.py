@@ -70,11 +70,17 @@ class TesteosMovimientos(unittest.TestCase):
         self.assertEqual(mensaje, "Error: No puedes consignar un valor negativo")
     
 
+    #testeos del envio de dinero
+
+    def testEnviarDineroContraseñaIncorrecta(self):
+
+        usuario = Usuario(cuenta = CuentaVirtual(saldo = 70000.0, contraseña=1234), numeroCelular = 3016534290, nombre="Juan Jose")
+        usuario.getCuenta().setUsuario(usuario)
+
+        usuario.getCuenta().enviarDinero()
 
 
 
-
-    
 
 if __name__ == "__main__":
     unittest.main()
