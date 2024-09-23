@@ -5,6 +5,13 @@ class BancoVirtual:
         self._clientesAsociados = []
         self._cuentasCreadas = []
     
+    def buscarClientePorNumeroDeCelular(self, numeroCelular):
+        for cliente in self._clientesAsociados:
+            if cliente.getNumeroCelular() == numeroCelular: 
+                return cliente
+        
+        return None
+
     def getServiciosDisponibles(self):
         return self._serviciosDisponibles
     

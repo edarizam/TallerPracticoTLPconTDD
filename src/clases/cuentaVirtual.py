@@ -35,9 +35,9 @@ class CuentaVirtual:
         elif valor <0:
             return "Error: No puedes consignar un valor negativo"
         
-
-
-
+    @classmethod
+    def crearId(cls, bancoVirtual):
+        return f'ID-{len(bancoVirtual.getCuentasCreadas())}'
 
     def getSaldo(self):
         return self._saldo
