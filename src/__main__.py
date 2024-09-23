@@ -127,14 +127,24 @@ def registrarUsuario(bancoVirtual):
         else: 
             break
        
-    edadCliente = ingresarCualquierDatoNumerico('\nDigite su edad: ')
+    while(True):
+        print('\nRecordatorio: La edad mínima de registro es de 12 años')
+        edadCliente = ingresarCualquierDatoNumerico('\nDigite su edad: ')
+
+        if edadCliente >= 12 and edadCliente <= 100:
+            break
+        elif edadCliente > 100:
+            print('Digite un valor real que sea acorde a su edad (Menor a 100 años)')
+        else:
+            print('La edad mínima para registarse es de 12 años')
 
     while(True):
         print('\nRecordatorio: La clave es un número de 4 digitos')
         contraseñaCuentaVirtual = ingresarCualquierDatoNumerico('\nDigite la clave para su cuenta: ')
         if len(str(contraseñaCuentaVirtual)) == 4: 
-            print('Error, la contraseña debe ser de 4 digitos')
             break
+        else:
+            print('Error, la contraseña debe ser de 4 digitos')
 
     
     #Creamos el cliente y le asociamos una cuenta
@@ -148,7 +158,8 @@ def registrarUsuario(bancoVirtual):
     cuentaVirtualCliente = CuentaVirtual(
         usuario = clienteProceso,
         contraseña = contraseñaCuentaVirtual,
-        bancoVirtual = bancoVirtual
+        bancoVirtual = bancoVirtual,
+        id = CuentaVirtual.crearId(bancoVirtual)
     )
 
     clienteProceso.setCuenta(cuentaVirtualCliente)
@@ -180,8 +191,9 @@ def iniciarSesion(bancoVirtual):
             print('\nRecordatorio: La clave es un número de 4 digitos')
             contraseñaCuentaVirtual = ingresarCualquierDatoNumerico('\nDigite la clave para su cuenta: ')
             if len(str(contraseñaCuentaVirtual)) == 4: 
-                print('Error, la contraseña debe ser de 4 digitos')
                 break
+            else:
+                print('Error, la contraseña debe ser de 4 digitos')
 
         clienteProceso = bancoVirtual.buscarClientePorNumeroDeCelular(numeroDeCelular)
 
@@ -291,9 +303,104 @@ def cerrarSesion():
     print("\nSesion Cerrada, Vuelva pronto\n")
     sys.exit()
 
+def requisitosDeSistema(bancoVirtual):
+    Servicio(
+            'Netflix', 
+            'Streaming', 
+            {
+            '1 Pantalla' : 16900,
+            '2 Pantallas' : 26900,
+            '4 Pantallas' : 36900
+            },
+            bancoVirtual
+        )
+    Servicio(
+            'Crunchyroll', 
+            'Streaming', 
+            {
+            '1 Pantalla' : 13900,
+            '2 Pantallas' : 22900,
+            '4 Pantallas' : 33900
+            },
+            bancoVirtual
+        )
+    Servicio(
+            'Disney+', 
+            'Streaming', 
+            {
+            '1 Pantalla' : 19900,
+            '2 Pantallas' : 28900,
+            '4 Pantallas' : 39900
+            },
+            bancoVirtual
+        )
+    
+    Servicio(
+            'Movistar', 
+            'Hogar', 
+            {
+            'Wifi: 300MB, Canales: 200, Llamadas ilimitadas' : 128000,
+            'Wifi: 200MB, Canales: 100, Llamadas: 1080 Minutos' : 64000,
+            'Wifi: 100MB, Llamadas: 640 Minutos' : 51000
+            },
+            bancoVirtual
+        )
+    Servicio(
+            'DirectTv', 
+            'Hogar', 
+            {
+            'Wifi: 400MB, Canales: 250, Llamadas ilimitadas' : 118000,
+            'Wifi: 250MB, Canales: 100, Llamadas: 1080 Minutos' : 74000,
+            'Wifi: 100MB, Llamadas: 640 Minutos' : 49000
+            },
+            bancoVirtual
+        )
+    Servicio(
+            'Claro', 
+            'Hogar', 
+            {
+            'Wifi: 250MB, Canales: 150, Llamadas ilimitadas' : 138000,
+            'Wifi: 1500MB, Canales: 100, Llamadas: 1080 Minutos' : 84000,
+            'Wifi: 80MB, Llamadas: 640 Minutos' : 47000
+            },
+            bancoVirtual
+        )
+    
+    Servicio(
+            'WOM', 
+            'Telefonía', 
+            {
+            'Datos: 100GB, Llamadas ilimitadas, Whatsapp ilimitado' : 58900,
+            'Datos: 50GB, Llamadas ilimitadas' : 45600,
+            'Datos: 30GB': 24000
+            },
+            bancoVirtual
+        )
+    Servicio(
+            'Movistar', 
+            'Telefonía', 
+            {
+            'Datos: 150GB, Llamadas ilimitadas, Whatsapp ilimitado' : 60900,
+            'Datos: 70GB, Llamadas ilimitadas' : 47600,
+            'Datos: 25GB': 23900
+            },
+            bancoVirtual
+        )
+    Servicio(
+            'Tigo', 
+            'Telefonía', 
+            {
+            'Datos: 90GB, Llamadas ilimitadas, Whatsapp ilimitado' : 59900,
+            'Datos: 60GB, Llamadas ilimitadas' : 44600,
+            'Datos: 20GB': 18000
+            },
+            bancoVirtual
+        )
+    
+    #Crear usuario para el profe
 
 bancoVirtual = BancoVirtual()
-#Definir aquí requisitos para el sistema
+requisitosDeSistema(bancoVirtual)
 clienteProceso = ingresoBancoVirtual(bancoVirtual)
 #clienteProceso =  Usuario(cuenta= CuentaVirtual(saldo= 12, usuario= None, id = CuentaVirtual.crearId(banco), contraseña= 1234, bancoVirtual= bancoVirtual), nombre="Oscar", bancoVirtual = bancoVirtual)
 #clienteProceso.getCuenta().setUsuario(clienteProceso)
