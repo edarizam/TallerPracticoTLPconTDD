@@ -178,7 +178,7 @@ def iniciarSesion(bancoVirtual):
     while(True):
 
         numeroDeCelular = 0
-        contraseña = 0
+        contraseñaCuentaVirtual = 0
 
         try:
             numeroDeCelular = int(input('Digite su número telefónico: '))
@@ -209,8 +209,8 @@ def iniciarSesion(bancoVirtual):
                 break
 
         else: 
-
-            if clienteProceso.getCuentaVirtual().getContraseña() == contraseña:
+            
+            if clienteProceso.getCuenta().getContraseña() == contraseñaCuentaVirtual:
                 print('\nInicio de sesión exitoso\n')
                 break
 
@@ -421,7 +421,7 @@ bancoVirtual = BancoVirtual()
 requisitosDeSistema(bancoVirtual)
 
 #Usuario para hacer pruebas de inicio de sesion 
-clientePrueba =  Usuario(cuenta= CuentaVirtual(saldo= 100000, usuario= None, id = CuentaVirtual.crearId(bancoVirtual), contraseña= "1234", bancoVirtual= bancoVirtual), nombre="Oscar", bancoVirtual = bancoVirtual, numeroCelular=3016534290)
+clientePrueba =  Usuario(cuenta= CuentaVirtual(saldo= 100000, usuario= None, id = CuentaVirtual.crearId(bancoVirtual), contraseña= "1234", bancoVirtual= bancoVirtual), nombre="Oscar", bancoVirtual = bancoVirtual, numeroCelular=123456789)
 clientePrueba.getCuenta().setUsuario(clientePrueba)
 
 clienteProceso = ingresoBancoVirtual(bancoVirtual)
