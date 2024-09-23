@@ -6,6 +6,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from clases.bancoVirtual import BancoVirtual
 from clases.servicio import Servicio
+from clases.cuentaVirtual import CuentaVirtual
+from clases.usuario import Usuario
 
 class bancoVirtualTest(unittest.TestCase):
     
@@ -51,12 +53,78 @@ class bancoVirtualTest(unittest.TestCase):
             bancoVirtual1
         )
 
+        #Construimos los objetos usuarios
+        usuario1 = Usuario(
+            nombre = "Carlos", 
+            edad = 24, 
+            numeroCelular = 3011278978, 
+            bancoVirtual = bancoVirtual1
+        )
+
+        usuario2 = Usuario(
+            nombre = "Pepito", 
+            edad = 99, 
+            numeroCelular = 301123654, 
+            bancoVirtual = bancoVirtual1
+        )
+
+        usuario3 = Usuario(
+            nombre = "Isabella", 
+            edad = 30, 
+            numeroCelular = 3011235245, 
+            bancoVirtual = bancoVirtual1
+        )
+        
         #Construimos los objetos cuentaVirtual
+        cuentaVirtual1 = CuentaVirtual(
+            usuario = usuario1,
+            id = CuentaVirtual.crearId(bancoVirtual1),
+            contraseña = '12345678',
+            bancoVirtual = bancoVirtual1
+        )
+
+        cuentaVirtual2 = CuentaVirtual(
+            usuario = usuario2,
+            id = CuentaVirtual.crearId(bancoVirtual1),
+            contraseña = 'contraseña',
+            bancoVirtual = bancoVirtual1
+        )
+
+        cuentaVirtual3 = CuentaVirtual(
+            usuario = usuario3,
+            id = CuentaVirtual.crearId(bancoVirtual1),
+            contraseña = 'nadieLaDescifrara',
+            bancoVirtual = bancoVirtual1
+        )
+
+        #Le asignamos al cliente su respectiva cuenta
+        usuario1.setCuenta(cuentaVirtual1)
+        usuario2.setCuenta(cuentaVirtual2)
+        usuario3.setCuenta(cuentaVirtual3)
 
         #Consultamos que se añaden efectivamente
-        #self.assertEqual(len(bancoVirtual1.getClientesAsociados()), 3)
-        #self.assertEqual(len(bancoVirtual1.getCuentasCreadas()), 3)
+        self.assertEqual(len(bancoVirtual1.getClientesAsociados()), 3)
+        self.assertEqual(len(bancoVirtual1.getCuentasCreadas()), 3)
         self.assertEqual(len(bancoVirtual1.getServiciosDisponibles()), 3)
+
+    def testBuscarClientePorNumeroDeCelular(self):
+
+        bancoVirtual1 = BancoVirtual()
+
+        usuario4 = Usuario(
+            nombre = 'Alberto',
+            numeroCelular = 3914504312,
+            edad = 18,
+            bancoVirtual = bancoVirtual1
+        )
+
+        clienteEncontrado1 = bancoVirtual1.buscarClientePorNumeroDeCelular(3914504312)
+
+        self.assertIs(clienteEncontrado1, usuario4)
+
+        clienteEncontrado2 = bancoVirtual1.buscarClientePorNumeroDeCelular(39145043129)
+
+        self.assertEqual(clienteEncontrado2, None)
 
 if __name__ == '__main__':
     unittest.main()
