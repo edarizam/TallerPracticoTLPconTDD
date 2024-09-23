@@ -2,11 +2,13 @@ class Servicio:
     
     _serViciosDisponibles = []
 
-    def __init__(self, nombre, tipo, planesMensuales):
+    def __init__(self, nombre, tipo, planesMensuales, bancoVirtual):
         self._nombre = nombre
         self._tipo = tipo
         self._planesMensuales = planesMensuales
+        self._bancoVirtual = bancoVirtual
         Servicio._serViciosDisponibles.append(self)
+
     
     def getNombre(self):
         return self._nombre
@@ -25,6 +27,12 @@ class Servicio:
     
     def setPlanesMensuales(self, planesMensuales):
         self._planesMensuales = planesMensuales
+
+    def getBancoVirtual(self):
+        return self._bancoVirtual
+    
+    def setBancoVirtual(self, bancoVirtual):
+        self._bancoVirtual = bancoVirtual
 
     @classmethod
     def getServiciosDisponibles(cls):

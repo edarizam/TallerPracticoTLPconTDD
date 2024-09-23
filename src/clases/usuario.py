@@ -1,25 +1,32 @@
 class Usuario:
     
-    def __init__(self, cuenta = None, nombre = "", edad = 0):
+    def __init__(self, cuenta = None, nombre = "", edad = 0, bancoVirtual = None):
         
-        self.cuenta = cuenta
-        self.nombre = nombre
-        self.edad = edad
+        self._cuenta = cuenta
+        self._nombre = nombre
+        self._edad = edad
+        self._bancoVirtual = bancoVirtual
 
     def getCuenta(self):
-        return self.cuenta
+        return self._cuenta
 
     def setCuenta(self, cuenta):
-        self.cuenta = cuenta
+        self._cuenta = cuenta
 
     def getNombre(self):
-        return self.nombre
+        return self._nombre
 
     def setNombre(self, nombre):
-        self.nombre = nombre
+        self._nombre = nombre
 
     def getEdad(self):
-        return self.edad
+        return self._edad
 
     def setEdad(self, edad):
-        self.edad = edad
+        self._edad = edad
+
+    def getBancoVirtual(self):
+        return self._bancoVirtual
+    
+    def setBancoVirtual(self, bancoVirtual):
+        self._bancoVirtual = bancoVirtual

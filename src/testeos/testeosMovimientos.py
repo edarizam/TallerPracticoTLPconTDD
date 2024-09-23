@@ -8,7 +8,7 @@ from clases.usuario import Usuario
 from clases.cuentaVirtual import CuentaVirtual
 
 
-class testeosMovimientos(unittest.TestCase):
+class TesteosMovimientos(unittest.TestCase):
 
     #Testeos de retiro de dinero
 
