@@ -7,6 +7,9 @@ class Usuario:
         self._edad = edad
         self._bancoVirtual = bancoVirtual
 
+        if self._bancoVirtual is not None:
+            self._bancoVirtual.getCuentasCreadas().append(self) 
+
     def getCuenta(self):
         return self._cuenta
 

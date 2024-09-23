@@ -7,7 +7,9 @@ class CuentaVirtual:
         self._id = id
         self._contraseña = contraseña
         self._bancoVirtual = bancoVirtual
-        self._bancoVirtual.getCuentasCreadas().append(self)
+
+        if self._bancoVirtual is not None:
+            self._bancoVirtual.getCuentasCreadas().append(self) 
     
 
     def retirar(self, valor):

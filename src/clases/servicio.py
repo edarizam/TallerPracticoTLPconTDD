@@ -7,6 +7,10 @@ class Servicio:
         self._tipo = tipo
         self._planesMensuales = planesMensuales
         self._bancoVirtual = bancoVirtual
+
+        if self._bancoVirtual is not None:
+            self._bancoVirtual.getCuentasCreadas().append(self) 
+            
         Servicio._serViciosDisponibles.append(self)
 
     
