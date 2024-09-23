@@ -23,7 +23,7 @@ class CuentaVirtual:
         elif valor < 0:
             return "Error: No se puede retirar un monto negativo"
         
-        elif valor ==0:
+        elif valor == 0:
             return "Error: No se puede retirar un monto nulo"
         
     def consignar(self, valor):

@@ -85,7 +85,6 @@ class TesteosCuentaVirtual(unittest.TestCase):
         
         self.assertEqual(len(TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas()), 20)
 
-        TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas().clear()
 
 if __name__ == "__main__":
     unittest.main()
