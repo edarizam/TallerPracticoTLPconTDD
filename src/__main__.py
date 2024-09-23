@@ -1,7 +1,7 @@
 """
 Integrantes: 
-• Juan José Gonzalez Morales
-• Edinson Andres Ariza Mendoza 
+• Juan José Gonzalez Morales, C.C. 1013458547
+• Edinson Andres Ariza Mendoza, C.C. 1099737114
 
 Aplicación: 
 
@@ -17,10 +17,8 @@ consignar, retirar y enviar dinero a otro a usuario unicamente a otro usuario qu
 virtual de la aplicacion. (Para esto se usan las clases BancoVirtual, CuentaVirtual, Usuario ubicadas en sus 
 respectivos módulos).
 
-• Pago de servicios: 
-
-
-
+• Pago de servicios: En esta funcionalidad, según los servicios con los que tengamos algún convenio, el usuario
+podrá realizar el pago de planes mensuales asociados al servicio
 
 Requisitos del sistema:
 

@@ -37,11 +37,10 @@ class CuentaVirtual:
         elif valor <0:
             return "Error: No puedes consignar un valor negativo"
         
-<<<<<<< HEAD
     @classmethod
     def crearId(cls, bancoVirtual):
         return f'ID-{len(bancoVirtual.getCuentasCreadas())}'
-=======
+    
     def enviarDinero(self, contraseña = "", numeroCuenta = 0, valor = 0):
 
         if self._contraseña == contraseña:
@@ -62,8 +61,6 @@ class CuentaVirtual:
                 return "El numero de cuenta ingresado no existe, intentalo de nuevo"
         else:
             return "Contraseña incorrecta, vuelva a intentarlo"
-
->>>>>>> 520a614c0c7db8da616e018ab68b63f7fca7730e
 
     def getSaldo(self):
         return self._saldo
