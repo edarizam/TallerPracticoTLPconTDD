@@ -131,7 +131,7 @@ def registrarUsuario(bancoVirtual):
 
     while(True):
         print('\nRecordatorio: La clave es un número de 4 digitos')
-        contraseñaCuentaVirtual = ingresarCualquierDatoNumerico('\nDigite la clave para su cuenta: ')
+        contraseñaCuentaVirtual = str(ingresarCualquierDatoNumerico('\nDigite la clave para su cuenta: '))
         if len(str(contraseñaCuentaVirtual)) == 4: 
             print('Error, la contraseña debe ser de 4 digitos')
             break
@@ -178,8 +178,8 @@ def iniciarSesion(bancoVirtual):
 
         while(True):
             print('\nRecordatorio: La clave es un número de 4 digitos')
-            contraseñaCuentaVirtual = ingresarCualquierDatoNumerico('\nDigite la clave para su cuenta: ')
-            if len(str(contraseñaCuentaVirtual)) == 4: 
+            contraseñaCuentaVirtual = str(ingresarCualquierDatoNumerico('\nDigite la clave para su cuenta: '))
+            if len(str(contraseñaCuentaVirtual)) != 4: 
                 print('Error, la contraseña debe ser de 4 digitos')
                 break
 
@@ -265,9 +265,9 @@ def mostrarOpcionesAplicacion(usuario):
             if eleccionUsuario == 1:
                 retirarDinero(usuario)
             elif eleccionUsuario == 2:
-                pass
+                consignarDinero(usuario)
             elif eleccionUsuario == 3:
-                pass
+                enviarDinero(usuario)
             elif eleccionUsuario == 4:
                 pass
             elif eleccionUsuario == 5:
@@ -284,7 +284,25 @@ def retirarDinero(user):
 
     print(user.getCuenta().__str__())
     print(user.getCuenta().retirar(int(input("Digite el valor a retirar: "))))
+    print("")
     print(user.getCuenta().__str__())
+
+def consignarDinero(user):
+    print(user.getCuenta().__str__())
+    print(user.getCuenta().consignar(int(input("Digite el valor a consignar: "))))
+    print("")
+    print(user.getCuenta().__str__())
+
+def enviarDinero(user):
+
+    print(user.getCuenta().__str__())
+    constraseña = input("\nIngrese la contraseña de su cuenta: ")
+    destinatario = int(input("Ingrese el numero de cuenta del destinatario: "))
+    valor = int(input("Digite el valor a enviar: "))
+    print("")   
+    print(user.getCuenta().enviarDinero(constraseña, destinatario, valor))
+    print(user.getCuenta().__str__())
+
 
 
 def cerrarSesion():
@@ -292,9 +310,15 @@ def cerrarSesion():
     sys.exit()
 
 
-bancoVirtual = BancoVirtual()
+
 #Definir aquí requisitos para el sistema
+
+bancoVirtual = BancoVirtual()
+
+#Usuario para hacer pruebas de inicio de sesion 
+clientePrueba =  Usuario(cuenta= CuentaVirtual(saldo= 100000, usuario= None, id = CuentaVirtual.crearId(bancoVirtual), contraseña= "1234", bancoVirtual= bancoVirtual), nombre="Oscar", bancoVirtual = bancoVirtual, numeroCelular=3016534290)
+clientePrueba.getCuenta().setUsuario(clientePrueba)
+
 clienteProceso = ingresoBancoVirtual(bancoVirtual)
-#clienteProceso =  Usuario(cuenta= CuentaVirtual(saldo= 12, usuario= None, id = CuentaVirtual.crearId(banco), contraseña= 1234, bancoVirtual= bancoVirtual), nombre="Oscar", bancoVirtual = bancoVirtual)
-#clienteProceso.getCuenta().setUsuario(clienteProceso)
+
 mostrarOpcionesAplicacion(clienteProceso)

@@ -60,9 +60,12 @@ class CuentaVirtual:
                 elif valor > 0 and valor > self._saldo:
                     return f"No tienes saldo suficiente, te hacen falta {valor-self._saldo}$"
                 else:
-                    self._saldo-=valor
-                    self._usuario.getBancoVirtual().getClientesAsociados()[indice].getCuenta().setSaldo(self._usuario.getBancoVirtual().getClientesAsociados()[indice].getCuenta().getSaldo()+valor)
-                    return f"Se han enviado {valor}$ exitosamente"
+                    if numeroCuenta != self.getUsuario().getNumeroCelular():
+                        self._saldo-=valor
+                        self._usuario.getBancoVirtual().getClientesAsociados()[indice].getCuenta().setSaldo(self._usuario.getBancoVirtual().getClientesAsociados()[indice].getCuenta().getSaldo()+valor)
+                        return f"Se han enviado {valor}$ exitosamente a {self._usuario.getBancoVirtual().getClientesAsociados()[indice].getNombre()}"
+                    else: 
+                        return "Error: No puedes enviarte dinero a tu misma cuenta, utiliza la opcion de consignar"
             else: 
                 return "El numero de cuenta ingresado no existe, intentalo de nuevo"
         else:
