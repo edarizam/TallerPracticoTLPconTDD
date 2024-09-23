@@ -9,8 +9,8 @@ class Servicio:
         self._bancoVirtual = bancoVirtual
 
         if self._bancoVirtual is not None:
-            self._bancoVirtual.getCuentasCreadas().append(self) 
-            
+            self._bancoVirtual.getServiciosDisponibles().append(self) 
+
         Servicio._serViciosDisponibles.append(self)
 
     
