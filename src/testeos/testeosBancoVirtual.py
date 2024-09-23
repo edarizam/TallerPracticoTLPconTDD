@@ -51,9 +51,7 @@ class bancoVirtualTest(unittest.TestCase):
             bancoVirtual1
         )
 
-        #Construimos los objetos cuenta
-
-        #Construimos los objetos cliente
+        #Construimos los objetos cuentaVirtual
 
         #Consultamos que se añaden efectivamente
         #self.assertEqual(len(bancoVirtual1.getClientesAsociados()), 3)
