@@ -96,7 +96,11 @@ class TesteosCuentaVirtual(unittest.TestCase):
 
         TesteosCuentaVirtual.bancoVirtual1.getCuentasCreadas().clear()
 
-        cuentaStr = CuentaVirtual(12000.0, CuentaVirtual.crearId(TesteosCuentaVirtual.bancoVirtual1), Usuario(nombre="Oscar"), "1234", TesteosCuentaVirtual.bancoVirtual1)
+        cuentaStr = CuentaVirtual(12000.0, 
+                    CuentaVirtual.crearId(TesteosCuentaVirtual.bancoVirtual1), 
+                    Usuario(nombre="Oscar"), 
+                    "1234", 
+                    TesteosCuentaVirtual.bancoVirtual1)
 
         mensaje = cuentaStr.__str__()
 
