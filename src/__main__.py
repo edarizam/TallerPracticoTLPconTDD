@@ -71,7 +71,7 @@ def ingresarCualquierDatoNumerico(textoDatoASeleccionar):
             print('Error, debe ingresar un dato numérico')
             continue
 
-        print(f'\nEl dato seleccionado es: {datoIngresadoPorUsuario}, ¿Desea Continuar?')
+        print(f'\nEl dato ingresado es: {datoIngresadoPorUsuario}, ¿Desea Continuar?')
 
         eleccionUsuario = eleccionBinaria('SI', 'NO')
 
@@ -281,16 +281,13 @@ def mostrarOpcionesAplicacion(usuario):
             elif eleccionUsuario == 3:
                 enviarDinero(usuario)
             elif eleccionUsuario == 4:
-                pass
+                adquirirServicio(usuario)
             elif eleccionUsuario == 5:
                 cerrarSesion()
             else: 
                 print("\nOpcion no valida, intente de nuevo\n")
         except ValueError:
             print("\nError: Debes ingresar un número válido.\n")
-
-        
-
 
 def retirarDinero(user):
 
@@ -315,7 +312,99 @@ def enviarDinero(user):
     print(user.getCuenta().enviarDinero(constraseña, destinatario, valor))
     print(user.getCuenta().__str__())
 
+def adquirirServicio(usuario):
 
+    eleccionUsuario = 0
+    servicioProceso = None
+    tipoDeServicioSeleccionado = ''
+    pagoRealizado = False
+    
+    print('Bienvenido al sistema de pago o adquisición de serivicios\n')
+
+    tiposDeServicio = usuario.getBancoVirtual().filtrarTiposDeServiciosDisponibles()
+
+    tiposDeServiciosEnumerados = [f'{index + 1}. {tipoDeServicio}' for index, tipoDeServicio in enumerate(tiposDeServicio)]
+
+    mostrarTiposDeServicio = '\n'.join(tiposDeServiciosEnumerados)
+
+    while(True):
+        print('Seleccione uno de los tipos de servicios disponibles\n')
+
+        print(mostrarTiposDeServicio)
+
+        try:
+            eleccionUsuario = int(input('\nDigite un único valor numérico entre los disponibles: '))
+        except ValueError:
+            print('Error, debe ingresar un dato numérico entre los disponibles')
+            continue
+
+        if eleccionUsuario > 0 and eleccionUsuario <= len(tiposDeServicio):
+            tipoDeServicioSeleccionado = tiposDeServicio[eleccionUsuario - 1]
+
+            print(f'\nEl tipo de servicio seleccionado es: {tipoDeServicioSeleccionado}, ¿Desea continuar?')
+
+            eleccionUsuario = eleccionBinaria('SI', 'NO')
+
+            if eleccionUsuario == 1:
+                break
+    
+    serviciosPorTipo = bancoVirtual.filtrarServiciosPorTipo(tipoDeServicioSeleccionado)
+
+    serviciosPorTipoEnumerados = [f'{i + 1}. {servicio.getNombre()}' for i, servicio in enumerate(serviciosPorTipo)]
+
+    mostrarServiciosPorTipo = '\n'.join(serviciosPorTipoEnumerados)
+
+    while(True):
+
+        print('\nSeleccione uno de los servicios disponibles\n')
+        print(mostrarServiciosPorTipo)
+
+        try:
+            eleccionUsuario = int(input('\nDigite un único valor numérico entre los disponibles: '))
+        except ValueError:
+            print('Error, debe ingresar un dato numérico entre los disponibles')
+            continue
+        
+        if eleccionUsuario > 0 and eleccionUsuario <= len(serviciosPorTipo):
+            
+            servicioProceso = serviciosPorTipo[eleccionUsuario - 1]
+
+            print(f'\nEl servicio seleccionado es: {servicioProceso.getNombre()}, ¿Desea continuar?')
+
+            eleccionUsuario = eleccionBinaria('SI', 'NO')
+
+            if eleccionUsuario == 1:
+                break
+
+    listaPlanesMensuales = list(servicioProceso.getPlanesMensuales().keys())
+    
+    while(True):
+
+        print('Seleccione uno de los planes mensuales disponibles\n')
+        print(str(servicioProceso))
+
+        try:
+            eleccionUsuario = int(input('\nDigite un único valor numérico entre los disponibles: '))
+        except ValueError:
+            print('Error, debe ingresar un dato numérico entre los disponibles')
+            continue
+        
+        if eleccionUsuario > 0 and eleccionUsuario <= len(listaPlanesMensuales):
+            
+            planSeleccionado = listaPlanesMensuales[eleccionUsuario - 1]
+
+            print(f'\nEl plan mensual seleccionado es: {planSeleccionado}, ¿Desea continuar?')
+
+            eleccionUsuario = eleccionBinaria('SI', 'NO')
+
+            if eleccionUsuario == 1:
+                pagoRealizado = True if 'exitosamente' in usuario.getCuenta().retirar(servicioProceso.getPlanesMensuales()[planSeleccionado]) else False
+                break
+    
+    if pagoRealizado:
+        print('El pago del servicio se ha realizado de forma exitosa\nRedireccinando al menú principal...\n')
+    else:
+        print('No se ha podido realizar el pago, debido a que no tienes saldo suficiente\nTe invitamos amablemente a recargar tu tarjeta\nRedireccionando al menú principal...\n')
 
 def cerrarSesion():
     print("\nSesion Cerrada, Vuelva pronto\n")
@@ -416,13 +505,11 @@ def requisitosDeSistema(bancoVirtual):
         )
     
     #Crear usuario para el profe
+    clientePrueba =  Usuario(cuenta= CuentaVirtual(saldo= 100000, usuario= None, id = CuentaVirtual.crearId(bancoVirtual), contraseña= "1234", bancoVirtual= bancoVirtual), nombre="Oscar", bancoVirtual = bancoVirtual, numeroCelular=123456789, edad = 18)
+    clientePrueba.getCuenta().setUsuario(clientePrueba)
 
 bancoVirtual = BancoVirtual()
 requisitosDeSistema(bancoVirtual)
-
-#Usuario para hacer pruebas de inicio de sesion 
-clientePrueba =  Usuario(cuenta= CuentaVirtual(saldo= 100000, usuario= None, id = CuentaVirtual.crearId(bancoVirtual), contraseña= "1234", bancoVirtual= bancoVirtual), nombre="Oscar", bancoVirtual = bancoVirtual, numeroCelular=123456789)
-clientePrueba.getCuenta().setUsuario(clientePrueba)
 
 clienteProceso = ingresoBancoVirtual(bancoVirtual)
 
